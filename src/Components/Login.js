@@ -6,10 +6,10 @@ import Service from "../Service";
 export default class Login extends Component {
     constructor(props) {
         super(props);
+        this.service = new Service();
         this.state = {
             login: "",
-            password: "",
-            service: new Service()
+            password: ""
         };
     }
 
@@ -24,7 +24,7 @@ export default class Login extends Component {
     };
 
     handleSubmit = event => {
-        this.state.service
+        this.service
             .obtainAccessToken(this.state.login, this.state.password)
             .then((response) => {
                 this.props.cookies.set('access_token', response.data.access_token);

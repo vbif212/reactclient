@@ -17,6 +17,20 @@ class Service {
             {headers: headers}
         );
     }
+
+    getResource(url, token) {
+        const headers = {
+            Authorization: 'Bearer ' + token
+        };
+        return axios.get(url, {headers: headers});
+    }
+
+    postResource(url, token, params) {
+        const headers = {
+            Authorization: 'Bearer ' + token
+        };
+        return axios.post(url, params, {headers: headers});
+    }
 }
 
 export default Service;
