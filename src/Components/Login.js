@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import { Button, FormGroup, FormControl, FormLabel  } from "react-bootstrap";
+import React, {Component} from "react";
+import {Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
 import "../css/Login.css";
+import Service from "../Service";
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             login: "",
-            password: ""
+            password: "",
+            service: new Service()
         };
     }
 
@@ -22,7 +24,15 @@ export default class Login extends Component {
     };
 
     handleSubmit = event => {
-        event.preventDefault();
+        this.state.service
+            .obtainAccessToken(this.state.login, this.state.password)
+            .then((response) => {
+                this.props.cookies.set('access_token', response.data.access_token);
+                this.props.history.push('/issues');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     render() {
@@ -34,7 +44,7 @@ export default class Login extends Component {
                         <FormControl
                             autoFocus
                             type="text"
-                            value={this.state.email}
+                            value={this.state.login}
                             onChange={this.handleChange}
                         />
                     </FormGroup>
