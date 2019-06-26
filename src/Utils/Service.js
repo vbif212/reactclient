@@ -1,4 +1,5 @@
 import axios from "axios/index";
+import config from "../config"
 
 class Service {
     obtainAccessToken(username, password) {
@@ -12,24 +13,31 @@ class Service {
             Authorization: 'Basic ' + btoa('clientIdPassword:secret')
         };
         return axios.post(
-            'http://localhost:8081/spring-security-oauth-server/oauth/token',
+            config.tokenUrl,
             params.toString(),
             {headers: headers}
         );
     }
 
-    getResource(url, token) {
+    getResource(urlPath, token) {
         const headers = {
             Authorization: 'Bearer ' + token
         };
-        return axios.get(url, {headers: headers});
+        return axios.get(config.resourceUrl + urlPath, {headers: headers});
     }
 
-    postResource(url, token, params) {
+    postResource(urlPath, token, params) {
         const headers = {
             Authorization: 'Bearer ' + token
         };
-        return axios.post(url, params, {headers: headers});
+        return axios.post(config.resourceUrl + urlPath, params, {headers: headers});
+    }
+
+    deleteResource(urlPath, token) {
+        const headers = {
+            Authorization: 'Bearer ' + token
+        };
+        return axios.delete(config.resourceUrl + urlPath, {headers: headers});
     }
 }
 

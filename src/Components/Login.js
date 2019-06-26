@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Button, FormGroup, FormControl, FormLabel} from "react-bootstrap";
-import "../css/Login.css";
-import Service from "../Service";
+import Service from "../Utils/Service";
 
 export default class Login extends Component {
     constructor(props) {
@@ -33,12 +32,22 @@ export default class Login extends Component {
             .catch((err) => {
                 console.log(err);
             });
+        event.preventDefault();
+    };
+
+    loginStyle = {
+        padding: '60px 0'
+    };
+
+    formLoginStyle = {
+        margin: '0 auto',
+        maxWidth : '320px'
     };
 
     render() {
         return (
-            <div className="Login">
-                <form onSubmit={this.handleSubmit}>
+            <div style={this.loginStyle}>
+                <form onSubmit={this.handleSubmit} style={this.formLoginStyle}>
                     <FormGroup controlId="login">
                         <FormLabel>Login</FormLabel>
                         <FormControl

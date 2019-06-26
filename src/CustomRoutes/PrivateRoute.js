@@ -6,7 +6,7 @@ const PrivateRoute = ({component: Component, cookies, ...rest}) => (
         cookies.get("access_token")
             ? <Component cookies={cookies} {...props} />
             : <Redirect to={{
-                pathname: '/login',
+                pathname: '/',
                 state: {from: props.location}
             }}/>
     )}/>
